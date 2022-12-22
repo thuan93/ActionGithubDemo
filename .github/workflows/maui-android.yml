@@ -1,8 +1,6 @@
 name: .NET Core Maui Android
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -38,11 +36,11 @@ jobs:
 
     # Restore the application 
     - name: Restore the application
-      run: dotnet restore
+      run: dotnet workload restore
 
     # pushlic app
     - name: public the application
-      run: dotnet publish -f:net7.0-android -c:Release /p:AndroidSigningKeyPass={{secrets.AndroidSigningKeyPass}} /p:AndroidSigningStorePass={{secrets.AndroidSigningStorePass}}
+      run: dotnet publish -f:net7.0-android -c:Release /p:AndroidSigningKeyPass=${{secrets.AndroidSigningKeyPass}} /p:AndroidSigningStorePass=${{secrets.AndroidSigningStorePass}}
 
     - name: Firebase App Distribution Action
       uses: hasretsariyer/firebase-app-distribution-github-action@v1.0
