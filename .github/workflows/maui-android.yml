@@ -35,6 +35,12 @@ jobs:
     # get current folder
     - name: Folder current is ${{GITHUB_WORKSPACE}}
       run: ls
+      
+    - name: install workload
+      run: dotnet workload install
+      
+    - name: install workload
+      run: dotnet workload list      
     
     # Restore the application 
     - name: Restore the application
