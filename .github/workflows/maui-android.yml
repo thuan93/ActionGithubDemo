@@ -36,6 +36,7 @@ jobs:
 
     # get current folder
     - name: Folder current is ${GITHUB_WORKSPACE}
+      run: cd D/a/ActionGithubDemo/ActionGithubDemo
     
     # Restore the application 
     - name: Restore the application
