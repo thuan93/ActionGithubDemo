@@ -1,6 +1,8 @@
 name: .NET Core Maui Android
 
-on: push
+on:
+  check_run:
+    types: [rerequested, requested_action]
 
 jobs:
 
@@ -10,7 +12,7 @@ jobs:
       matrix:
         configuration: [Release]
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
+    runs-on: macos-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
@@ -28,12 +30,8 @@ jobs:
       with:
         dotnet-version: 7.0.x
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.1
-
     # get current folder
-    - name: Folder current is ${{GITHUB_WORKSPACE}}
+    - name: Folder current is ${GITHUB_WORKSPACE}
       run: ls
       
     - name: install workload
