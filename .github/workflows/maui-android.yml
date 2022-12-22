@@ -33,7 +33,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     # get current folder
-    - name: Folder current is ${{GITHUB_WORKSPACE}}
+    - name: Folder current
       run: ls
     
     # Restore the application 
