@@ -1,8 +1,6 @@
 name: .NET Core Maui Android
 
-on:
-  pull_request:
-    branches: [ "main" ]
+on: []
 
 jobs:
 
@@ -10,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Debug]
+        configuration: [Release]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -35,8 +33,8 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     # get current folder
-    - name: Folder current is ${GITHUB_WORKSPACE}
-      run: cd D/a/ActionGithubDemo/ActionGithubDemo
+    - name: Folder current is ${{GITHUB_WORKSPACE}}
+      run: ls
     
     # Restore the application 
     - name: Restore the application
