@@ -10,7 +10,7 @@ jobs:
       matrix:
         configuration: [Release]
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
+    runs-on: macos-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
@@ -33,7 +33,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     # get current folder
-    - name: Folder current is ${{GITHUB_WORKSPACE}}
+    - name: Folder current is ${GITHUB_WORKSPACE}
       run: ls
     
     # Restore the application 
