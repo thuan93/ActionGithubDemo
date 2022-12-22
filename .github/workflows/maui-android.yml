@@ -31,11 +31,8 @@ jobs:
         dotnet-version: 7.0.x
 
     # get current folder
-    - name: Folder current is ${GITHUB_WORKSPACE}
+    - name: Folder current
       run: ls
-      
-    - name: install workload
-      run: dotnet workload install
       
     - name: install workload
       run: dotnet workload list      
