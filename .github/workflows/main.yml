@@ -4,8 +4,7 @@ on: push
 
 jobs:
 
-  build:
-
+  build-android:
     strategy:
       matrix:
         configuration: [Release]
@@ -42,10 +41,25 @@ jobs:
     # pushlic app
     - name: public the application
       run: dotnet publish -f:net7.0-android -c:Release /p:AndroidSigningKeyPass=${{secrets.AndroidSigningKeyPass}} /p:AndroidSigningStorePass=${{secrets.AndroidSigningStorePass}}
-
-    - name: Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-          app_id: ${{secrets.FIREBASEAPPID}}
-          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          app_file: bin/Release/net7.0-android/publish/com.companyname.actiongithubdemo-Signed.apk
+        name: com.companyname.actiongithubdemo-Signed.apk
+        path: bin/Release/net7.0-android/publish/com.companyname.actiongithubdemo-Signed.apk
+
+  upload-android:
+    needs: build-android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: com.companyname.actiongithubdemo-Signed.apk
+            
+      - name: Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
+        with:
+            app_id: ${{secrets.FIREBASEAPPID}}
+            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+            app_file: com.companyname.actiongithubdemo-Signed.apk
