@@ -4,8 +4,7 @@ on: push
 
 jobs:
 
-  build:
-
+  build-android:
     strategy:
       matrix:
         configuration: [Release]
@@ -26,14 +25,7 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
-
-    # get current folder
-    - name: Folder current
-      run: ls
-      
-    - name: install workload
-      run: dotnet workload list      
+        dotnet-version: 7.0.x   
     
     # Restore the application 
     - name: Restore the application
@@ -41,11 +33,26 @@ jobs:
 
     # pushlic app
     - name: public the application
-      run: dotnet publish -f:net7.0-android -c:Release /p:AndroidSigningKeyPass=${{secrets.AndroidSigningKeyPass}} /p:AndroidSigningStorePass=${{secrets.AndroidSigningStorePass}}
-
-    - name: Firebase App Distribution Action
-      uses: hasretsariyer/firebase-app-distribution-github-action@v1.0
+      run: dotnet publish -f:net7.0-android -c:Release /p:AndroidSigningKeyPass=${{secrets.AndroidSigningKeyPass}} /p:AndroidSigningStorePass=${{secrets.AndroidSigningStorePass}} --output ./Publish
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-          app_id: ${{secrets.FIREBASEAPPID}}
-          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          app_file: bin/Release/net7.0-android/publish/com.companyname.actiongithubdemo-Signed.apk
+        name: com.companyname.actiongithubdemo-Signed.apk
+        path: Publish/com.companyname.actiongithubdemo-Signed.apk
+
+  upload-android:
+    needs: build-android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: com.companyname.actiongithubdemo-Signed.apk
+            
+      - name: Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
+        with:
+            app_id: ${{secrets.FIREBASEAPPID}}
+            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+            app_file: com.companyname.actiongithubdemo-Signed.apk
