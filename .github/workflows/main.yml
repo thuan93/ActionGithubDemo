@@ -1,8 +1,6 @@
 name: .NET Core Maui Android
 
-on:
-  check_run:
-    types: [rerequested, requested_action]
+on: push
 
 jobs:
 
