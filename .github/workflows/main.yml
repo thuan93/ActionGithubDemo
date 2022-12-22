@@ -43,8 +43,8 @@ jobs:
     - name: public the application
       run: dotnet publish -f:net7.0-android -c:Release /p:AndroidSigningKeyPass=${{secrets.AndroidSigningKeyPass}} /p:AndroidSigningStorePass=${{secrets.AndroidSigningStorePass}}
 
-    - name: Firebase App Distribution Action
-      uses: hasretsariyer/firebase-app-distribution-github-action@v1.0
+    - name: Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
       with:
           app_id: ${{secrets.FIREBASEAPPID}}
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
