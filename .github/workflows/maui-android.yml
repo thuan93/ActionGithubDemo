@@ -1,6 +1,6 @@
 name: .NET Core Maui Android
 
-on: []
+on: push
 
 jobs:
 
