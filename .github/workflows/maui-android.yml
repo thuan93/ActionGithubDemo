@@ -34,6 +34,9 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
 
+    # get current folder
+    - name: Folder current is ${GITHUB_WORKSPACE}
+    
     # Restore the application 
     - name: Restore the application
       run: dotnet workload restore
