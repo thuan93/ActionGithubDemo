@@ -1,10 +1,6 @@
 name: .NET Core Maui Android
 
-on:
-  push:
-    branches:
-      - master
-      - Dev
+on: fork
 
 jobs:
 
