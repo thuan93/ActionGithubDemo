@@ -1,6 +1,6 @@
 name: .NET Core Maui Android
 
-on: push
+on: fork
 
 jobs:
 
