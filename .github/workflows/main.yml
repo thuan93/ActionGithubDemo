@@ -53,6 +53,6 @@ jobs:
       - name: Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
         with:
-            app_id: ${{secrets.FIREBASEAPPID}}
+            appId: ${{secrets.FIREBASEAPPID}}
             serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-            app_file: com.companyname.actiongithubdemo-Signed.apk
+            file: com.companyname.actiongithubdemo-Signed.apk
